@@ -1,0 +1,105 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+
+
+<!-- Search Box -->
+<div class="container-fluid bg-dark">
+    <div class="form-group">
+        <div class="container p-3">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <input type="text" class="form-control" id="searchTextBox" name="searchText" placeholder="Enter Search Text">
+                </div>
+                <div class="col-1">
+                    <button onclick="searchCall()" id="searchButton" type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Book Search Results -->
+<div class="container">
+    <div class="row justify-content-center" id="response_pool">
+        <!-- This is where the AJAX objects will go -->
+    </div>
+</div>
+
+<!-- Modal -->
+<style>
+    /* The Modal (background) */
+.modal {
+display: inline-block; /* default: display */
+visibility: visible;
+position: fixed; /* Stay in place */
+z-index: 100001; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+    /* Modal Content/Box */
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 80%; /* Could be more or less, depending on screen size */
+}
+
+    /* The Close Button */
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+</style>
+
+<script>
+    function closeModal() {
+        document.getElementById("myModal").hidden = true;
+    }
+</script>
+
+<div id="myModal" class="modal" hidden="true">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" id="myModalClose" onclick="closeModal()">&times;</span>
+        &nbsp;
+        <h3>Add Review</h3>
+        <hr>
+        <!-- Form Grid-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"  for="bookName">Book Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="bookName" id="bookNameField" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="reviewMessage">Review:</label>
+            <div class="col-sm-10">
+                <textarea name="reviewMessage" class="form-control" id="reviewInput" rows="5" placeholder="Enter Review for the Book"></textarea>
+            </div>
+        </div>
+        <div class="text-right">
+            <form action="/review" method="post">
+                <button class="btn btn-primary float-right" id="submitReviewButton" onclick="submitReview();">Submit</button>        
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -26,7 +26,3 @@ searchButton.onclick = function() {
         document.getElementById("response_pool").innerHTML = work_string;
     });
 }
-
-document.getElementById("submitReviewButton").onclick = function() {
-    console.log("Adding review.....")
-}

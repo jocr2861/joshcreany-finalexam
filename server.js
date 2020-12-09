@@ -51,21 +51,51 @@ app.get('/home', function(req, res) {
 
 // clicking on review page 
 app.get('/review', function(req, res) {
-    var reviewQuery = `;`;
-    res.render('pages/reviews',{
-		my_title:"Review Page",
-        results:''
-	});
+    var reviewQuery = `select * from reviews;`;
+    db.task('get-everything', task => {
+        return task.batch([
+            task.any(reviewQuery)
+        ]);
+    })
+    .then(info => {
+    	// res.render('pages/reviews',{
+        //     my_title:"Review Page",
+        //     results:info[0]
+        // });
+        res.render(info[0]);
+    })
+    .catch(err => {
+        console.log('error', err);
+        res.render('pages/reviews',{
+            my_title:"Review Page",
+            results:''
+        });
+    });
 });
 
 // posting a review, then redirecting to reviews page 
 app.post('/reviews', function(req, res) {
-    var bookTitle = `;`;
-    var reviewText = `;`;
-    var reviewDate = `Test Date;`;
-    res.render('pages/reviews',{
-		my_title:"Review Page"
-	});
+    var addreviewQuery = `INSERT INTO reviews(title, review, review_date) VALUES('${req.body.bookName}','${req.body.reviewMessage}',GETDATE());`;
+    var reviewQuery = `select * from reviews;`;
+    db.task('get-everything', task => {
+        return task.batch([
+            task.any(addreviewQuery),
+            task.any(reviewQuery)
+        ]);
+    })
+    .then(info => {
+    	res.render('pages/reviews',{
+            my_title:"Review Page",
+            results:info[0]
+        });
+    })
+    .catch(err => {
+        console.log('error', err);
+        res.render('pages/reviews',{
+            my_title:"Review Page",
+            results:''
+        });
+    });
 });
 
 

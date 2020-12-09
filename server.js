@@ -50,7 +50,7 @@ app.get('/home', function(req, res) {
 });
 
 // clicking on review page 
-app.get('/review', function(req, res) {
+app.get('/reviews', function(req, res) {
     var reviewQuery = `select * from reviews;`;
     db.task('get-everything', task => {
         return task.batch([

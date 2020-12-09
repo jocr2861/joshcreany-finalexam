@@ -58,11 +58,11 @@ app.get('/reviews', function(req, res) {
         ]);
     })
     .then(info => {
-    	// res.render('pages/reviews',{
-        //     my_title:"Review Page",
-        //     results:info[0]
-        // });
-        res.render(info[0]);
+    	res.render('pages/reviews',{
+            my_title:"Review Page",
+            results:info[0]
+        });
+        console.log(info);
     })
     .catch(err => {
         console.log('error', err);

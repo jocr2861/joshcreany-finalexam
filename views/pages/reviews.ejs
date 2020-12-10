@@ -1,16 +1,23 @@
-<p>HELLO</p>
-<%
-if (results) {
-    var resultCards = '';
-    results.forEach(function(item){
-        resultCards += `<div class="card"><p>${item.title}</p>`;
-        resultCards += `<p>${item.review}</p>`;
-        resultCards += `<p>${item.review_date}</p>`;
-        resultCards += "</div>";
-    }); %>
-    <%- resultCards %>
-<% } %>
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
 
-<!-- resultCards += `<div class="card"><p>${item.title}</p>`; -->
-    <!-- resultCards += `<p>${item.author}</p>`; -->
-    <!-- resultCards += "</div>"; -->
+<table class="table table-bordered" id="reviews_table">
+    <tr>
+        <th class="align-bottom" rowspan="3">Book Reviews</th>
+    </tr>
+    <tr>
+        <th>Book</th>
+        <th>Review</th>
+        <th>Review Date</th>
+    </tr>
+    <%
+    if (results) {
+        var rows = '';
+        results.forEach(function(item){
+            rows += '<tr><td>'+item.title+'</td><td>'+item.review+'</td><td>'+item.review_date+'</td></tr>';
+        }); %>
+        <%- rows %>
+    <% } %>
+</table>
+
+<%- include('../partials/footer') %>

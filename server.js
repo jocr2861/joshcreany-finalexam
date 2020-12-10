@@ -86,7 +86,7 @@ app.post('/reviews', function(req, res) {
     .then(info => {
     	res.render('pages/reviews',{
             my_title:"Review Page",
-            results:info[0]
+            results:info[1]
         });
     })
     .catch(err => {

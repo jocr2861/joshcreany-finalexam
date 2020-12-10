@@ -73,7 +73,7 @@ app.get('/reviews', function(req, res) {
 
 // posting a review, then redirecting to reviews page 
 app.post('/reviews', function(req, res) {
-    var addreviewQuery = `INSERT INTO reviews(title, review, review_date) VALUES('${req.body.bookName}','${req.body.reviewMessage}',now());`;
+    var addreviewQuery = `INSERT INTO reviews(book_title, review, review_date) VALUES('${req.body.bookName}','${req.body.reviewMessage}',now());`;
     var reviewQuery = `SELECT * FROM reviews;`;
     db.task('get-everything', task => {
         return task.batch([

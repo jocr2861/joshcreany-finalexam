@@ -1,11 +1,16 @@
 <p>HELLO</p>
-<!-- <%
-    if (results) {
-        var resultCards = '';
-        results.forEach(function(item){
-            resultCards += `<div class="card"><p>${item.title}</p>`;
-            resultCards += `<p>${item.author}</p>`;
-            resultCards += "</div>";
-        }); %>
-        <%- resultCards %>
-    <% } %> -->
+<%
+if (results) {
+    var resultCards = '';
+    results.forEach(function(item){
+        resultCards += `<div class="card"><p>${item.title}</p>`;
+        resultCards += `<p>${item.review}</p>`;
+        resultCards += `<p>${item.review_date}</p>`;
+        resultCards += "</div>";
+    }); %>
+    <%- resultCards %>
+<% } %>
+
+<!-- resultCards += `<div class="card"><p>${item.title}</p>`; -->
+    <!-- resultCards += `<p>${item.author}</p>`; -->
+    <!-- resultCards += "</div>"; -->

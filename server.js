@@ -62,7 +62,7 @@ app.get('/reviews', function(req, res) {
             my_title:"Review Page",
             results:info[0]
         });
-        console.log(info);
+        console.log(info[0]);
     })
     .catch(err => {
         console.log('error', err);

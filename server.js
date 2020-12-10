@@ -44,14 +44,13 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 // home page 
 app.get('/home', function(req, res) {
 	res.render('pages/main',{
-        my_title:"Home Page",
-        results:''
+        my_title:"Home Page"
 	});
 });
 
 // clicking on review page 
 app.get('/reviews', function(req, res) {
-    var reviewQuery = `select * from reviews;`;
+    var reviewQuery = `SELECT * FROM reviews;`;
     db.task('get-everything', task => {
         return task.batch([
             task.any(reviewQuery)
@@ -60,7 +59,7 @@ app.get('/reviews', function(req, res) {
     .then(info => {
     	res.render('pages/reviews',{
             my_title:"Review Page",
-            results:info[0]
+            results:info[0] //this is all of the reviews from the database
         });
     })
     .catch(err => {
@@ -74,22 +73,18 @@ app.get('/reviews', function(req, res) {
 
 // posting a review, then redirecting to reviews page 
 app.post('/reviews', function(req, res) {
-    console.log(req.body);
-    console.log(req.body.bookName);
-    console.log(req.body.reviewMessage);
-
     var addreviewQuery = `INSERT INTO reviews(title, review, review_date) VALUES('${req.body.bookName}','${req.body.reviewMessage}',now());`;
-    var reviewQuery = `select * from reviews;`;
+    var reviewQuery = `SELECT * FROM reviews;`;
     db.task('get-everything', task => {
         return task.batch([
-            task.any(addreviewQuery),
-            task.any(reviewQuery)
+            task.any(addreviewQuery), //the new review is added
+            task.any(reviewQuery) //then, all reviews are retrieved
         ]);
     })
     .then(info => {
     	res.render('pages/reviews',{
             my_title:"Review Page",
-            results:info[1]
+            results:info[1] //this is the reviews from the database, after the new review is added
         });
     })
     .catch(err => {
